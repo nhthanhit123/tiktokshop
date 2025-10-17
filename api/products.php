@@ -85,7 +85,15 @@ try {
             'sale_price' => (float)$row['sale_price'],
             'affiliate_link' => $row['affiliate_link'],
             'created_at' => $row['created_at'],
-            'updated_at' => $row['updated_at']
+            'updated_at' => $row['updated_at'],
+            // Add mock data for mobile app feel
+            'sold_count' => rand(100, 5000),
+            'rating' => round(rand(30, 50) / 10, 1),
+            'review_count' => rand(10, 500),
+            'is_official' => rand(0, 1) === 1,
+            'is_freeship' => true,
+            'category' => 'electronics', // Mock category
+            'brand' => 'Official Brand' // Mock brand
         ];
         
         // Calculate discount percentage

@@ -37,18 +37,23 @@ CREATE TABLE IF NOT EXISTS product_tracking (
     INDEX idx_created (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Insert sample products
+-- Insert sample products with realistic data
 INSERT INTO products (name, description, image, original_price, sale_price, affiliate_link) VALUES
-('Máy sấy tóc mini', 'Máy sấy tóc mini công suất lớn, gọn nhẹ dễ mang theo', 'uploads/dryer1.jpg', 78000.00, 58998.00, 'https://shopee.vn/product/123456'),
-('Mũ bảo hiểm fullface', 'Mũ bảo hiểm fullface chính hãng, đạt chuẩn an toàn', 'uploads/helmet1.jpg', 60000.00, 49000.00, 'https://shopee.vn/product/234567'),
-('Ốp lưng điện thoại', 'Ốp lưng silicon cao cấp, chống sốc, bảo vệ camera', 'uploads/phonecase1.jpg', 35000.00, 25542.00, 'https://shopee.vn/product/345678'),
-('Tai nghe không dây', 'Tai nghe Bluetooth 5.0, chất âm tuyệt vời, pin trâu', 'uploads/earbuds1.jpg', 450000.00, 289000.00, 'https://shopee.vn/product/456789'),
-('Sạc dự phòng 20000mAh', 'Sạc dự phòng dung lượng lớn, hỗ trợ sạc nhanh', 'uploads/powerbank1.jpg', 320000.00, 189000.00, 'https://shopee.vn/product/567890'),
-('Loa Bluetooth di động', 'Loa Bluetooth bass mạnh, chống nước IPX7', 'uploads/speaker1.jpg', 680000.00, 459000.00, 'https://shopee.vn/product/678901'),
-('Bàn phím cơ gaming', 'Bàn phím cơ RGB, switch blue, phù hợp game thủ', 'uploads/keyboard1.jpg', 890000.00, 659000.00, 'https://shopee.vn/product/789012'),
-('Chuột gaming wireless', 'Chuột không dây DPI cao, pin lâu, thiết kế ergonomics', 'uploads/mouse1.jpg', 450000.00, 329000.00, 'https://shopee.vn/product/890123'),
-('Webcam HD 1080p', 'Webcard chất lượng cao, phù hợp họp online, livestream', 'uploads/webcam1.jpg', 780000.00, 549000.00, 'https://shopee.vn/product/901234'),
-('Microphone USB', 'Microphone thu âm chuyên nghiệp, giảm ồn tốt', 'uploads/mic1.jpg', 1200000.00, 890000.00, 'https://shopee.vn/product/012345');
+('Máy sấy tóc mini công suất lớn 1800W', 'Máy sấy tóc mini công suất lớn, gọn nhẹ dễ mang theo, 2 tốc độ, làm nóng nhanh', 'uploads/dryer1.jpg', 289000.00, 189000.00, 'https://shopee.vn/product/123456'),
+('Mũ bảo hiểm fullface 3/4 chính hãng', 'Mũ bảo hiểm fullface chính hãng, đạt chuẩn an toàn quốc tế, kính chống trầy', 'uploads/helmet1.jpg', 450000.00, 289000.00, 'https://shopee.vn/product/234567'),
+('Ốp lưng điện thoại iPhone 13 Pro Max', 'Ốp lưng silicon cao cấp, chống sốc, bảo vệ camera, trong suốt viền màu', 'uploads/phonecase1.jpg', 125000.00, 69000.00, 'https://shopee.vn/product/345678'),
+('Tai nghe Bluetooth AirPods Pro replica', 'Tai nghe Bluetooth 5.0, chất âm tuyệt vời, pin trâu, chống ồn chủ động', 'uploads/earbuds1.jpg', 1290000.00, 890000.00, 'https://shopee.vn/product/456789'),
+('Sạc dự phòng Anker 20000mAh PowerCore', 'Sạc dự phòng dung lượng lớn, hỗ trợ sạc nhanh PowerIQ, 2 cổng USB', 'uploads/powerbank1.jpg', 890000.00, 650000.00, 'https://shopee.vn/product/567890'),
+('Loa Bluetooth JBL Flip 5', 'Loa Bluetooth bass mạnh, chống nước IPX7, pin 12 giờ, thiết kế nhỏ gọn', 'uploads/speaker1.jpg', 2390000.00, 1590000.00, 'https://shopee.vn/product/678901'),
+('Bàn phím cơ gaming RGB Mechanical', 'Bàn phím cơ RGB backlight, switch blue, phù hợp game thủ, anti-ghosting', 'uploads/keyboard1.jpg', 1890000.00, 1290000.00, 'https://shopee.vn/product/789012'),
+('Chuột gaming wireless Logitech G304', 'Chuột không dây DPI cao 12000, pin lâu 250 giờ, thiết kế ergonomics', 'uploads/mouse1.jpg', 1190000.00, 890000.00, 'https://shopee.vn/product/890123'),
+('Webcam HD 1080p Logitech C920', 'Webcam chất lượng cao, phù hợp họp online, livestream, micro tích hợp', 'uploads/webcam1.jpg', 2390000.00, 1590000.00, 'https://shopee.vn/product/901234'),
+('Microphone USB Rode NT-USB', 'Microphone thu âm chuyên nghiệp, giảm ồn tốt, phù hợp podcast/streaming', 'uploads/mic1.jpg', 4590000.00, 3290000.00, 'https://shopee.vn/product/012345'),
+('Đồng hồ thông minh Apple Watch Series 8', 'Đồng hồ thông minh theo dõi sức khỏe, GPS, chống nước, pin 18 giờ', 'uploads/watch1.jpg', 12990000.00, 10990000.00, 'https://shopee.vn/product/111111'),
+('Tai nghe over-ear Sony WH-1000XM4', 'Tai nghe chụp tai chống ồn chủ động, chất âm hi-res, pin 30 giờ', 'uploads/headphone1.jpg', 6990000.00, 4990000.00, 'https://shopee.vn/product/222222'),
+('Máy ảnh Canon EOS M50 Mark II', 'Máy ảnh mirrorless 24.1MP, 4K video, màn hình xoay lật, wifi', 'uploads/camera1.jpg', 18900000.00, 15900000.00, 'https://shopee.vn/product/333333'),
+('Gaming Laptop ASUS ROG Strix G15', 'Laptop gaming RTX 3060, AMD Ryzen 7, RAM 16GB, SSD 512GB, 144Hz', 'uploads/laptop1.jpg', 28990000.00, 24990000.00, 'https://shopee.vn/product/444444'),
+('iPad Air 5 2022 WiFi 64GB', 'iPad Air M1 chip, 10.9 inch Liquid Retina, hỗ trợ Apple Pencil 2', 'uploads/ipad1.jpg', 14990000.00, 13990000.00, 'https://shopee.vn/product/555555');
 
 -- Insert sample tracking data
 INSERT INTO product_tracking (product_id, action, ip_address, user_agent) VALUES
