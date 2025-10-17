@@ -56,10 +56,16 @@ class AffiliateShop {
             if (!response.ok) {
                 throw new Error('Failed to fetch products');
             }
-            this.products = await response.json();
-            this.filteredProducts = [...this.products];
-            this.renderProducts();
-            this.updateProductCount();
+            const result = await response.json();
+            
+            if (result.success && result.data) {
+                this.products = result.data;
+                this.filteredProducts = [...this.products];
+                this.renderProducts();
+                this.updateProductCount();
+            } else {
+                throw new Error(result.message || 'Invalid response format');
+            }
         } catch (error) {
             console.error('Error loading products:', error);
             this.showError();
@@ -127,10 +133,16 @@ class AffiliateShop {
         const discount = Math.round(((product.original_price - product.sale_price) / product.original_price) * 100);
         const isFlashSale = discount >= 50;
         
+        // Handle image path
+        let imagePath = product.image;
+        if (imagePath && !imagePath.startsWith('http')) {
+            imagePath = imagePath.startsWith('/') ? imagePath : '/' + imagePath;
+        }
+        
         return `
             <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl">
                 <div class="relative">
-                    <img src="${product.image}" alt="${product.name}" 
+                    <img src="${imagePath}" alt="${product.name}" 
                          class="product-image w-full h-48 object-cover"
                          onerror="this.src='https://picsum.photos/seed/${product.id}/300/200.jpg'">
                     
@@ -175,7 +187,7 @@ class AffiliateShop {
                     <a href="${product.affiliate_link}" 
                        target="_blank" 
                        rel="noopener noreferrer"
-                       onclick="this.trackProductClick('${product.id}')"
+                       onclick="window.shop.trackProductClick('${product.id}')"
                        class="affiliate-link block w-full bg-orange-500 hover:bg-orange-600 text-white text-center py-2 px-4 rounded-lg font-medium transition">
                         Mua Ngay
                     </a>
@@ -292,11 +304,14 @@ class AffiliateShop {
 
 // Initialize the shop when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new AffiliateShop();
+    window.shop = new AffiliateShop();
 });
 
 // Utility functions
 window.trackProductClick = function(productId) {
     // This function is called from the HTML onclick attribute
     console.log('Product clicked:', productId);
+    if (window.shop && window.shop.trackProductClick) {
+        window.shop.trackProductClick(productId);
+    }
 };

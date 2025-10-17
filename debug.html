@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Shop Affiliate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Debug Shop Affiliate</h1>
+        
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">1. Kiểm tra kết nối database</h2>
+            <button onclick="testDatabase()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                Test Database
+            </button>
+            <div id="dbResult" class="mt-4 p-4 bg-gray-100 rounded"></div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">2. Kiểm tra API Products</h2>
+            <button onclick="testProductsAPI()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                Test Products API
+            </button>
+            <div id="productsResult" class="mt-4 p-4 bg-gray-100 rounded"></div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">3. Kiểm tra file tồn tại</h2>
+            <button onclick="checkFiles()" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded">
+                Check Files
+            </button>
+            <div id="filesResult" class="mt-4 p-4 bg-gray-100 rounded"></div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold mb-4">4. Thông tin hệ thống</h2>
+            <div id="systemInfo" class="p-4 bg-gray-100 rounded"></div>
+        </div>
+    </div>
+
+    <script>
+        // Test database connection
+        async function testDatabase() {
+            const resultDiv = document.getElementById('dbResult');
+            resultDiv.innerHTML = '<p>Đang kiểm tra...</p>';
+            
+            try {
+                const response = await fetch('api/test.php');
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h3 class="font-semibold mb-2">Kết quả:</h3>
+                    <pre class="bg-white p-3 rounded text-sm overflow-x-auto">${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3 class="font-semibold mb-2 text-red-600">Lỗi:</h3>
+                    <p class="text-red-600">${error.message}</p>
+                `;
+            }
+        }
+        
+        // Test products API
+        async function testProductsAPI() {
+            const resultDiv = document.getElementById('productsResult');
+            resultDiv.innerHTML = '<p>Đang kiểm tra...</p>';
+            
+            try {
+                const response = await fetch('api/products.php');
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h3 class="font-semibold mb-2">Kết quả:</h3>
+                    <p>Status: ${response.status}</p>
+                    <p>Success: ${data.success}</p>
+                    <p>Products count: ${data.data ? data.data.length : 0}</p>
+                    <pre class="bg-white p-3 rounded text-sm overflow-x-auto mt-2">${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3 class="font-semibold mb-2 text-red-600">Lỗi:</h3>
+                    <p class="text-red-600">${error.message}</p>
+                `;
+            }
+        }
+        
+        // Check files
+        async function checkFiles() {
+            const resultDiv = document.getElementById('filesResult');
+            const files = [
+                'api/products.php',
+                'api/track.php',
+                'config.php',
+                'database.sql',
+                'index.html',
+                'script.js',
+                'style.css'
+            ];
+            
+            let html = '<h3 class="font-semibold mb-2">Kiểm tra file:</h3>';
+            
+            for (const file of files) {
+                try {
+                    const response = await fetch(file, { method: 'HEAD' });
+                    const status = response.status;
+                    const color = status === 200 ? 'text-green-600' : 'text-red-600';
+                    html += `<p class="${color}">${file}: ${status}</p>`;
+                } catch (error) {
+                    html += `<p class="text-red-600">${file}: Error - ${error.message}</p>`;
+                }
+            }
+            
+            resultDiv.innerHTML = html;
+        }
+        
+        // Show system info
+        function showSystemInfo() {
+            const infoDiv = document.getElementById('systemInfo');
+            infoDiv.innerHTML = `
+                <p><strong>User Agent:</strong> ${navigator.userAgent}</p>
+                <p><strong>Current URL:</strong> ${window.location.href}</p>
+                <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+                <p><strong>Online:</strong> ${navigator.onLine ? 'Yes' : 'No'}</p>
+            `;
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            showSystemInfo();
+        });
+    </script>
+</body>
+</html>
